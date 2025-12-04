@@ -1,36 +1,35 @@
-"use client"
+import { Play } from "lucide-react";
 
-import { Play } from "lucide-react"
-
-interface CodeInputPanelProps {
-  value: string
-  onChange: (value: string) => void
-  onRun: () => void
+// Define interface for props to avoid TypeScript warnings
+interface CodeInputProps {
+  code: string;
+  setCode: (value: string) => void;
+  onRun: () => void;
+  loading: boolean;
 }
 
-export default function CodeInputPanel({ value, onChange, onRun }: CodeInputPanelProps) {
+export default function CodeInputPanel({ code, setCode, onRun, loading }: CodeInputProps) {
   return (
-    <div className="bg-[#161618] rounded border border-[#2d2d30] flex flex-col h-full overflow-hidden">
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[#2d2d30]">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-[#9ca3af]">[code input]</h2>
-        <button
+    <div className="bg-[#111] border border-gray-800 rounded-lg flex flex-col overflow-hidden">
+      <div className="bg-[#161616] p-2 flex justify-between items-center border-b border-gray-800">
+        <span className="text-xs font-bold text-blue-500">[CODE INPUT]</span>
+        <button 
           onClick={onRun}
-          className="px-3 py-1 bg-transparent border border-[#3b82f6] text-[#3b82f6] rounded text-xs font-mono hover:bg-[#3b82f6] hover:text-white transition-colors"
+          disabled={loading}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs flex items-center gap-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Play className="w-3 h-3 inline mr-1" />
-          Run
+          {loading ? "Running..." : <><Play size={12} /> Run</>}
         </button>
       </div>
-
-      {/* Textarea */}
+      
       <textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="flex-1 bg-[#161618] text-[#e5e7eb] p-4 font-mono text-sm resize-none focus:outline-none border-0"
-        placeholder="Enter kamayo++ code here..."
-        spellCheck="false"
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+        // 3. Set the Placeholder here
+        placeholder="Input code here"
+        className="flex-1 bg-transparent p-4 font-mono text-sm text-gray-300 resize-none focus:outline-none placeholder-gray-600"
+        spellCheck={false}
       />
     </div>
-  )
+  );
 }

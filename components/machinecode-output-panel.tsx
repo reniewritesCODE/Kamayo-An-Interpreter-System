@@ -1,21 +1,14 @@
-"use client"
-
-interface MachineCodeOutputPanelProps {
-  output: string
-}
-
-export default function MachineCodeOutputPanel({ output }: MachineCodeOutputPanelProps) {
+export default function MachineOutputPanel({ output }: { output: string }) {
   return (
-    <div className="bg-[#161618] rounded border border-[#2d2d30] flex flex-col h-full overflow-hidden">
-      {/* Header */}
-      <div className="px-4 py-3 border-b border-[#2d2d30]">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-[#9ca3af]">[MACHINE CODE OUTPUT]</h2>
+    <div className="bg-[#111] border border-gray-800 rounded-lg flex flex-col overflow-hidden">
+      <div className="bg-[#161616] p-2 border-b border-gray-800">
+        <span className="text-xs font-bold text-blue-500">[MACHINE CODE OUTPUT]</span>
       </div>
-
-      {/* Console Output */}
-      <div className="flex-1 overflow-y-auto p-4 font-mono text-sm bg-[#0a0a0a] bg-opacity-50">
-        <pre className="text-[#a1a7b8] whitespace-pre-wrap wrap-break-words">{output || "// Output will appear here"}</pre>
+      <div className="flex-1 p-4 overflow-auto custom-scrollbar">
+        <pre className="font-mono text-sm text-pink-500 whitespace-pre-wrap">
+          {output}
+        </pre>
       </div>
     </div>
-  )
+  );
 }
